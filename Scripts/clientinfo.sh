@@ -21,8 +21,8 @@ current_time=$(date +"%Y-%m-%d %H:%M:%S")
     free -h  # Display memory usage
 
     echo -e "\nTop 5 Resource-Consuming Processes:"
-    ps aux --sort=-%mem | head -n 6  # Adjust as necessary
+    ps aux --sort=-%mem | head -n 6  
 } > "$log_file"
 
 # Securely copy the log file to the server
-scp "$log_file" "$server:/path/to/destination"  # Replace with the destination path on the server
+scp "$log_file" "$server:/"  
