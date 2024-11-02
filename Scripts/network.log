@@ -1,0 +1,306 @@
+Connectivity test run #1
+2024-10-30 12:48:13 - 192.168.15.130 192.168.15.131 is not responding.
+Checking routing table...
+default via 192.168.15.2 dev eth0 proto dhcp src 192.168.15.129 metric 100 
+192.168.15.0/24 dev eth0 proto kernel scope link src 192.168.15.129 metric 100 
+Hostname: kali
+Testing local DNS server...
+Server:		192.168.15.2
+Address:	192.168.15.2#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 192.178.24.238
+Name:	google.com
+Address: 2a00:1450:4018:80a::200e
+
+Tracing route to google.com...
+traceroute to google.com (192.178.24.238), 30 hops max, 60 byte packets
+ 1  192.168.15.2 (192.168.15.2)  0.194 ms  0.067 ms  0.228 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+Pinging google.com...
+Successfully pinged google.com.
+Connectivity test run #2
+2024-10-30 12:48:50 - 192.168.15.130 192.168.15.131 is not responding.
+Checking routing table...
+default via 192.168.15.2 dev eth0 proto dhcp src 192.168.15.129 metric 100 
+192.168.15.0/24 dev eth0 proto kernel scope link src 192.168.15.129 metric 100 
+Hostname: kali
+Testing local DNS server...
+Server:		192.168.15.2
+Address:	192.168.15.2#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 192.178.24.238
+Name:	google.com
+Address: 2a00:1450:4018:80a::200e
+
+Tracing route to google.com...
+traceroute to google.com (192.178.24.238), 30 hops max, 60 byte packets
+ 1  192.168.15.2 (192.168.15.2)  0.094 ms  0.086 ms  0.081 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+Pinging google.com...
+Successfully pinged google.com.
+Connectivity test run #3
+2024-10-30 12:49:27 - 192.168.15.130 192.168.15.131 is not responding.
+Checking routing table...
+default via 192.168.15.2 dev eth0 proto dhcp src 192.168.15.129 metric 100 
+192.168.15.0/24 dev eth0 proto kernel scope link src 192.168.15.129 metric 100 
+Hostname: kali
+Testing local DNS server...
+Server:		192.168.15.2
+Address:	192.168.15.2#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 192.178.24.238
+Name:	google.com
+Address: 2a00:1450:4018:80a::200e
+
+Tracing route to google.com...
+traceroute to google.com (192.178.24.238), 30 hops max, 60 byte packets
+ 1  192.168.15.2 (192.168.15.2)  0.111 ms  0.107 ms  0.087 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+Pinging google.com...
+Successfully pinged google.com.
+2024-10-30 13:04:34 - Connectivity test run #1
+2024-10-30 13:04:34 - Pinging 192.168.15.130 192.168.15.131...
+2024-10-30 13:04:45 - 192.168.15.130 192.168.15.131 is not responding.
+2024-10-30 13:04:45 - Checking routing table...
+default via 192.168.15.2 dev eth0 proto dhcp src 192.168.15.129 metric 100 
+192.168.15.0/24 dev eth0 proto kernel scope link src 192.168.15.129 metric 100 
+2024-10-30 13:04:45 - Hostname: kali
+2024-10-30 13:04:45 - Hostname: kali
+2024-10-30 13:04:45 - Testing local DNS server...
+Server:		192.168.15.2
+Address:	192.168.15.2#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 192.178.24.238
+Name:	google.com
+Address: 2a00:1450:4018:80a::200e
+
+2024-10-30 13:04:46 - Tracing route to google.com...
+traceroute to google.com (192.178.24.238), 30 hops max, 60 byte packets
+ 1  192.168.15.2 (192.168.15.2)  0.233 ms  0.140 ms  0.087 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+2024-10-30 13:05:16 - Pinging google.com...
+2024-10-30 13:05:17 - Successfully pinged google.com.
+2024-10-30 13:05:22 - Connectivity test run #2
+2024-10-30 13:05:22 - Pinging 192.168.15.130 192.168.15.131...
+2024-10-30 13:05:33 - 192.168.15.130 192.168.15.131 is not responding.
+2024-10-30 13:05:33 - Checking routing table...
+default via 192.168.15.2 dev eth0 proto dhcp src 192.168.15.129 metric 100 
+192.168.15.0/24 dev eth0 proto kernel scope link src 192.168.15.129 metric 100 
+2024-10-30 13:05:33 - Hostname: kali
+2024-10-30 13:05:33 - Hostname: kali
+2024-10-30 13:05:33 - Testing local DNS server...
+Server:		192.168.15.2
+Address:	192.168.15.2#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 192.178.24.238
+Name:	google.com
+Address: 2a00:1450:4018:80a::200e
+
+2024-10-30 13:05:33 - Tracing route to google.com...
+traceroute to google.com (192.178.24.238), 30 hops max, 60 byte packets
+ 1  192.168.15.2 (192.168.15.2)  0.293 ms  0.216 ms  0.123 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+2024-10-30 13:06:03 - Pinging google.com...
+2024-10-30 13:06:04 - Successfully pinged google.com.
+2024-10-30 13:06:09 - Connectivity test run #3
+2024-10-30 13:06:09 - Pinging 192.168.15.130 192.168.15.131...
+2024-10-30 13:06:20 - 192.168.15.130 192.168.15.131 is not responding.
+2024-10-30 13:06:20 - Checking routing table...
+default via 192.168.15.2 dev eth0 proto dhcp src 192.168.15.129 metric 100 
+192.168.15.0/24 dev eth0 proto kernel scope link src 192.168.15.129 metric 100 
+2024-10-30 13:06:20 - Hostname: kali
+2024-10-30 13:06:20 - Hostname: kali
+2024-10-30 13:06:20 - Testing local DNS server...
+Server:		192.168.15.2
+Address:	192.168.15.2#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 192.178.24.238
+Name:	google.com
+Address: 2a00:1450:4018:80a::200e
+
+2024-10-30 13:06:20 - Tracing route to google.com...
+traceroute to google.com (192.178.24.238), 30 hops max, 60 byte packets
+ 1  192.168.15.2 (192.168.15.2)  0.223 ms  0.113 ms  0.210 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+2024-10-30 13:06:50 - Pinging google.com...
+2024-10-30 13:06:51 - Successfully pinged google.com.

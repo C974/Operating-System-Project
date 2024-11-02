@@ -1,0 +1,9 @@
+Disk Information for HOME Directory:
+------------------------------------
+12K	/root/.local
+4.0K	/root/.ssh
+4.0K	/root/.cache
+64K	/root
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        79G   16G   59G  22% /
