@@ -2,45 +2,48 @@ import java.io.*;
 import java.net.*;
 
 public class Client1 {
-
     public static void main(String[] args) {
-        String serverAddress = "192.168.15.129"; // Server IP Address
-        int serverPort = 1300; // Server Port
+        String serverIP = "192.168.15.132"; // Server IP
+        int port = 1300;
 
-        try (Socket socket = new Socket(serverAddress, serverPort)) {
+        // Run login.sh
+        runShellScript("./login.sh");
+
+        // Run check.sh
+        runShellScript("./check.sh");
+
+        // Connect to the server
+        try (Socket socket = new Socket(serverIP, port);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
+
             System.out.println("Connected to the server.");
 
-            // Run login.sh and display output
-            System.out.println("Executing login.sh...");
-            runShellScript("login.sh");
+            // Request system info
+            out.println("REQUEST_SYSTEM_INFO");
 
-            // Run check.sh and display output
-            System.out.println("Executing check.sh...");
-            runShellScript("check.sh");
-
+            // Read and display system info
+            String response;
+            while ((response = in.readLine()) != null) {
+                if (response.equals("END_OF_FILE")) break;
+                System.out.println(response);
+            }
         } catch (IOException e) {
-            System.err.println("Error connecting to the server: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    // Method to run a shell script and display its output
-    private static void runShellScript(String scriptName) {
+    private static void runShellScript(String scriptPath) {
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptName);
-            Process process = processBuilder.start();
-
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
-                }
+            Process process = Runtime.getRuntime().exec(scriptPath);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
             }
-
-            int exitCode = process.waitFor();
-            System.out.println(scriptName + " exited with code: " + exitCode);
-
-        } catch (IOException | InterruptedException e) {
-            System.err.println("Error executing script " + scriptName + ": " + e.getMessage());
+            process.waitFor();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
