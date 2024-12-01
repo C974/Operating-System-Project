@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 public class Server {
     private static final int PORT = 1300;
     private static final String SYSTEM_INFO_SCRIPT = "./system.sh";
-    private static final String NETWORK_SCRIPT = "./Network.sh";
+    private static final String NETWORK_SCRIPT = "./network.sh";
     private static final List<String> clientRequests = Collections.synchronizedList(new ArrayList<>());
 
     public static void main(String[] args) {
