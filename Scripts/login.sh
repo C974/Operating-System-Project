@@ -1,55 +1,66 @@
 #!/bin/bash
+set -e  # Exit on errors
 
-# Log file for invalid attempts
-INVALID_LOG="invalid_attempts.log"
-
-# Function to log invalid attempts
-log_invalid_attempt() {
-    local username="$1"
-    echo "$(date): Invalid login attempt for user: $username" >> "$INVALID_LOG"
-}
-
-# Function to perform login
-perform_login() {
-    local username="$1"
-    local password="$2"
-    # Attempt login via SSH (dummy command with sshpass)
-    if sshpass -p "$password" ssh -o StrictHostKeyChecking=no "$username@SERVER_IP" exit; then
-        echo "Login successful for user: $username"
-        return 0
-    else
-        return 1
-    fi
-}
-
-# Main script logic
-USERNAME="$1"
-PASSWORD="$2"
-ATTEMPTS=0
+SERVER_IP="192.168.15.132"
+SFTP_USER="client1"
+INVALID_ATTEMPTS_LOG="invalid_attempts.log"
+CLIENT_LOG="client_timestamp_invalid_attempts.log"
 MAX_ATTEMPTS=3
+ATTEMPT_COUNT=0
 
-while [ "$ATTEMPTS" -lt "$MAX_ATTEMPTS" ]; do
-    if perform_login "$USERNAME" "$PASSWORD"; then
+# Check and install dependencies
+if ! command -v ssh &>/dev/null || ! command -v sftp &>/dev/null; then
+    echo "ssh or sftp not found. Installing..."
+    sudo apt update
+    sudo apt install -y ssh
+fi
+
+if ! command -v sshpass &>/dev/null; then
+    echo "sshpass not found. Installing..."
+    sudo apt update
+    sudo apt install -y sshpass
+fi
+
+log_invalid_attempt() {
+    timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "$timestamp - Invalid login attempt for user: $username" >> $INVALID_ATTEMPTS_LOG
+}
+
+copy_log_to_server() {
+    echo "Copying log file to server..."
+    ssh -o StrictHostKeyChecking=no $SFTP_USER@$SERVER_IP "mkdir -p logs"
+    sftp -oBatchMode=no $SFTP_USER@$SERVER_IP <<< "put $INVALID_ATTEMPTS_LOG logs/"
+}
+
+# Request username and password interactively
+read -p "Enter username: " username
+read -s -p "Enter password: " password
+echo  # Add a new line for better display
+
+# Attempt login
+while [ $ATTEMPT_COUNT -lt $MAX_ATTEMPTS ]; do
+    sshpass -p "$password" ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no $username@$SERVER_IP "exit" &>/tmp/ssh_output.log
+    if [ $? -eq 0 ]; then
+        echo "Login successful!"
         exit 0
     else
-        ((ATTEMPTS++))
-        log_invalid_attempt "$USERNAME"
-        echo "Invalid login attempt $ATTEMPTS for user: $USERNAME"
+        echo "Invalid credentials. Please try again."
+        log_invalid_attempt
+        ((ATTEMPT_COUNT++))
+        if [ $ATTEMPT_COUNT -lt $MAX_ATTEMPTS ]; then
+            read -s -p "Enter password: " password
+            echo  # Add a new line for better display
+        fi
     fi
 done
 
 # Handle excessive invalid attempts
 echo "Unauthorized user!"
-# Create timestamped log file for invalid attempts
-TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-cp "$INVALID_LOG" "client_timestamp_invalid_attempts_$TIMESTAMP.log"
 
-# Use SFTP to copy the log to the server
-sftp "$USERNAME@SERVER_IP" <<EOF
-put client_timestamp_invalid_attempts_$TIMESTAMP.log
-bye
-EOF
+cp $INVALID_ATTEMPTS_LOG $CLIENT_LOG
+copy_log_to_server
 
-# Schedule logout after 30 seconds
-sleep 30
-logout
+# Schedule logout
+echo "Logging out in 30 seconds..."
+sleep 30 && pkill -KILL -u $USER
+exit 1
