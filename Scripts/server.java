@@ -34,7 +34,7 @@ public class Server {
                  PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
 
                 // Run Network.sh script
-                Runtime.getRuntime().exec("./Network.sh");
+                Runtime.getRuntime().exec("./network.sh");
 
                 String request;
                 while ((request = in.readLine()) != null) {
