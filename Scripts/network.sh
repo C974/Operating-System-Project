@@ -1,34 +1,43 @@
 #!/bin/bash
 
-# Log file
-LOG_FILE="network.log"
+# Predefined client IPs
+client1_ip="192.168.15.130"
+client2_ip="192.168.15.131"
 
-# Function to log messages
-log_message() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$LOG_FILE"
-}
+# Checking if the ping command is found on the system
+if ! command -v ping &> /dev/null; then
+    echo "ping could not be found, installing ..."
+    sudo apt install -y iputils-ping &> /dev/null || sudo dnf install -y iputils &> /dev/null
+    echo "ping installed successfully."
+fi
 
-# Check for required tools
-command -v ping > /dev/null || { log_message "ping command not found"; exit 1; }
-command -v traceroute > /dev/null || { log_message "traceroute command not found"; exit 1; }
+# Checking if the traceroute command is found on the system
+if ! command -v traceroute &> /dev/null; then
+    echo "traceroute could not be found, installing ..."
+    sudo apt install -y traceroute &> /dev/null || sudo dnf install -y traceroute &> /dev/null
+    echo "traceroute installed successfully."
+fi
 
-# Input target IPs
-TARGET_IPS=$1
-
-# Connectivity test loop
-for run in {1..3}; do
-    log_message "Connectivity test run #$run"
-    
-    # Ping the target IPs
-    log_message "Pinging $TARGET_IPS..."
-    if ping -c 2 $TARGET_IPS > /dev/null; then
-        log_message "Connectivity with $TARGET_IPS is ok"
+for i in {1..3}; do
+    echo "Pinging client 1 IP: $client1_ip ..."
+    if ping -c 3 -W 3 "$client1_ip"; then    # -c 3 means send 3 packets, -W means wait time is 3 seconds
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        echo "$timestamp: Connectivity with $client1_ip is ok" | tee -a ./network.log  # Appends output to network.log
     else
-        log_message "$TARGET_IPS is not responding."
-        
-        # Run traceroute.sh if not responding
-        ./traceroute.sh
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        echo "Connection with $client1_ip is down at $timestamp"
+        echo "Connection with $client1_ip is down at $timestamp" | tee -a ./network.log
+        ./traceroute.sh "$client1_ip"
     fi
-    
-    sleep 5  # Adding a delay before the next test
+
+    echo "Pinging client 2 IP: $client2_ip ..."
+    if ping -c 3 -W 3 "$client2_ip"; then
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        echo "$timestamp: Connectivity with $client2_ip is ok" | tee -a ./network.log
+    else
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        echo "Connection with $client2_ip is down at $timestamp"
+        echo "Connection with $client2_ip is down at $timestamp" | tee -a ./network.log
+        ./traceroute.sh "$client2_ip"
+    fi
 done
